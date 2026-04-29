@@ -1,0 +1,79 @@
+.card-item {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent;
+  overflow: hidden;
+  background-color: var(--color-bg-medium);
+  will-change: transform;
+  content-visibility: auto;
+  contain-intrinsic-size: 300px 400px;
+}
+
+.card-item:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-accent);
+  box-shadow: 0 10px 30px rgba(255, 144, 0, 0.3);
+}
+
+.card-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
+
+.card-item:hover .card-image {
+  transform: scale(1.1);
+}
+
+.card-number {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: rgba(255, 144, 0, 0.9);
+  color: var(--color-bg-dark);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--color-primary);
+  z-index: 2;
+  text-shadow: none;
+}
+
+.card-title-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+  padding: 2rem 1rem 1rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .card-number {
+    font-size: 1.2rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .card-title-overlay {
+    font-size: 1.1rem;
+    padding: 1.5rem 0.8rem 0.8rem;
+  }
+}

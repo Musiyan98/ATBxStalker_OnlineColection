@@ -1,0 +1,127 @@
+.audio-player {
+  background-color: var(--color-bg-dark);
+  border: 2px solid var(--color-primary);
+  padding: 1.5rem;
+}
+
+.audio-player-error {
+  text-align: center;
+  padding: 2rem;
+}
+
+.audio-player-error p {
+  margin: 0.5rem 0;
+  color: var(--color-primary);
+}
+
+.audio-note {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.play-button {
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-accent);
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.play-button:hover {
+  background-color: #cc7400;
+  transform: scale(1.05);
+}
+
+.play-button:active {
+  transform: scale(0.95);
+}
+
+.progress-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.progress-bar {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background-color: var(--color-bg-medium);
+  border: 1px solid var(--color-primary);
+  cursor: pointer;
+  transition: height 0.2s ease;
+}
+
+.progress-bar:hover {
+  height: 12px;
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: var(--color-accent);
+  transition: width 0.1s linear;
+  pointer-events: none;
+}
+
+.progress-handle {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-accent);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: left 0.1s linear;
+}
+
+.progress-bar:hover .progress-handle {
+  width: 20px;
+  height: 20px;
+}
+
+.time-display {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .audio-player {
+    padding: 1rem;
+  }
+
+  .play-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .play-button svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .time-display {
+    font-size: 0.8rem;
+  }
+}
