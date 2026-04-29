@@ -11,13 +11,7 @@ export default defineConfig({
   build: {
     outDir: "dist",
     sourcemap: false, // Вимкнено для production
-    minify: "terser",
-    terserOptions: {
-      compress: {
-        drop_console: true, // Видаляємо console.log
-        drop_debugger: true,
-      },
-    },
+    minify: "esbuild", // Використовуємо esbuild (швидше ніж terser)
     rollupOptions: {
       output: {
         manualChunks: {
