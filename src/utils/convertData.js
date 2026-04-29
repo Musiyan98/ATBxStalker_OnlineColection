@@ -1,6 +1,9 @@
 // Скрипт для конвертації parsed_data.json у формат додатку
 
 export function convertParsedDataToCards(parsedData) {
+  // Отримуємо base URL від Vite (для GitHub Pages це буде /ATBxStalker_OnlineColection/, локально - /)
+  const baseUrl = import.meta.env.BASE_URL;
+
   return parsedData.map((card) => {
     // Беремо зображення з найвищою якістю (2x retina)
     const imageUrl =
@@ -11,8 +14,10 @@ export function convertParsedDataToCards(parsedData) {
     // Конвертуємо аудіо у вкладки
     const tabs = card.audio.map((audioItem, index) => ({
       label: audioItem.audioName,
-      // Додаємо "/" на початок для правильного шляху (Vite автоматично додасть base)
-      audio: audioItem.audioLocalPath ? `/${audioItem.audioLocalPath}` : null,
+      // Використовуємо baseUrl для правильного шляху в dev і production
+      audio: audioItem.audioLocalPath
+        ? `${baseUrl}${audioItem.audioLocalPath}`
+        : null,
       content: formatAudioText(audioItem.audioText),
       badge: index > 0, // Перша вкладка без badge, інші з badge
     }));
