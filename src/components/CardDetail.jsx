@@ -37,7 +37,7 @@ function CardDetail({ card, onBack }) {
                 className={`tab-button ${activeTab === index ? 'active' : ''}`}
                 onClick={() => setActiveTab(index)}
               >
-                <img src="/pda-icon.png" alt="" className="tab-icon" loading="lazy" />
+                <img src="pda-icon.png" alt="" className="tab-icon" loading="lazy" />
                 <span className="tab-label">{tab.label}</span>
                 {tab.badge && <span className="tab-badge"></span>}
               </button>
