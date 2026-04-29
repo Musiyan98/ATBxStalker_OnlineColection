@@ -13,7 +13,7 @@ function Header() {
       <div className="header-content">
         <div className="logo">
           <img 
-            src="/stalker-logo.png" 
+            src="/public/stalker-logo.png" 
             alt="S.T.A.L.K.E.R. 2: Heart of Chornobyl" 
             className="logo-image"
             loading="eager"
