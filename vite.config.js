@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/ATBxStalker_OmlineColection/", // GitHub Pages base URL
+  base: "/ATBxStalker_OnlineColection/", // GitHub Pages base URL (без 'm' в Online!)
   server: {
     port: 3000,
     open: true,
