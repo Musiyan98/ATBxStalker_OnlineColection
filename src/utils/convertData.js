@@ -11,6 +11,7 @@ export function convertParsedDataToCards(parsedData) {
     // Конвертуємо аудіо у вкладки
     const tabs = card.audio.map((audioItem, index) => ({
       label: audioItem.audioName,
+      // Додаємо "/" на початок для правильного шляху (Vite автоматично додасть base)
       audio: audioItem.audioLocalPath ? `/${audioItem.audioLocalPath}` : null,
       content: formatAudioText(audioItem.audioText),
       badge: index > 0, // Перша вкладка без badge, інші з badge

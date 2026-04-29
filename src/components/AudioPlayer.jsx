@@ -74,12 +74,12 @@ function AudioPlayer({ audioUrl, title }) {
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
-  // Якщо аудіо не завантажилось (blob URL недоступний), показуємо повідомлення
+  // Якщо аудіо не завантажилось, показуємо повідомлення в стилі S.T.A.L.K.E.R.
   if (error) {
     return (
       <div className="audio-player audio-player-error">
-        <p>⚠️ Аудіо недоступне (blob URL з оригінального сайту)</p>
-        <p className="audio-note">Для повного функціоналу завантажте аудіо файли локально</p>
+        <p>⚠️ Якась аномалія</p>
+        <p className="audio-note">Поверніться дещо пізніше, коли викид мине і ви все виправимо</p>
       </div>
     );
   }
