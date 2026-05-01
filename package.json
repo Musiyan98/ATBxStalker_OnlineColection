@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "images:download": "node scripts/1-download-images.js",
     "images:generate": "node scripts/2-generate-responsive.js",
+    "images:recompress": "node scripts/4-recompress-images.js",
     "images:update-data": "node scripts/3-update-data.js",
     "images:status": "node scripts/check-images-status.js",
     "images:all": "npm run images:download && npm run images:generate && npm run images:update-data"

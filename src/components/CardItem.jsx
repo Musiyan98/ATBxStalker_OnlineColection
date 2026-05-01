@@ -3,9 +3,10 @@ import ResponsiveImage from './ResponsiveImage';
 import { getGalleryPictureProps } from '../utils/imageHelpers';
 import '../styles/CardItem.css';
 
-const CardItem = memo(function CardItem({ card, onClick }) {
+const CardItem = memo(function CardItem({ card, onClick, priority = false }) {
   const baseUrl = import.meta.env.BASE_URL;
-  const pictureProps = getGalleryPictureProps(baseUrl, card.number, card.title, 'card-image', 'lazy');
+  const loading = priority ? 'eager' : 'lazy';
+  const pictureProps = getGalleryPictureProps(baseUrl, card.number, card.title, 'card-image', loading);
   
   return (
     <article className="card-item" onClick={onClick}>
