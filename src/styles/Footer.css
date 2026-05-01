@@ -66,6 +66,13 @@
   border-bottom: 1px solid transparent;
 }
 
+.footer-link-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+}
+
 .footer-link:hover {
   color: var(--color-accent);
   border-bottom-color: var(--color-accent);
@@ -90,6 +97,39 @@
 
 .footer-copyright p {
   margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-heart {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.radiation-icon {
+  color: var(--color-accent);
+  opacity: 0.9;
+  animation: radiationPulse 2s ease-in-out infinite;
+  vertical-align: middle;
+  display: inline-block;
+  filter: drop-shadow(0 0 3px var(--color-accent));
+}
+
+@keyframes radiationPulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 2px var(--color-accent));
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15) rotate(5deg);
+    filter: drop-shadow(0 0 6px var(--color-accent));
+  }
 }
 
 /* Responsive */

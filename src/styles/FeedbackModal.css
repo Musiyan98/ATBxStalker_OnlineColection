@@ -1,0 +1,347 @@
+/* Backdrop */
+.feedback-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(128, 128, 128, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+  overflow-y: auto;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal */
+.feedback-modal {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 2px solid #F2E8D9;
+  border-radius: 4px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease-out;
+  margin: auto;
+  position: relative;
+  z-index: 10001;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.feedback-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid rgba(242, 232, 217, 0.2);
+}
+
+.feedback-modal-title {
+  font-family: 'Stalker', sans-serif;
+  font-size: 24px;
+  color: #F2E8D9;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.feedback-modal-close {
+  background: none;
+  border: none;
+  color: #F2E8D9;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  border-radius: 4px;
+}
+
+.feedback-modal-close:hover {
+  background-color: rgba(242, 232, 217, 0.1);
+  transform: scale(1.1);
+}
+
+/* Form */
+.feedback-form {
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group-slide-in {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 200px;
+  }
+}
+
+.form-label {
+  display: block;
+  font-family: 'Stalker', sans-serif;
+  font-size: 14px;
+  color: #F2E8D9;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Select */
+.form-select {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(242, 232, 217, 0.3);
+  border-radius: 4px;
+  color: #F2E8D9;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.form-select:hover {
+  border-color: rgba(242, 232, 217, 0.5);
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #F2E8D9;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.form-select option {
+  background-color: #1a1a1a;
+  color: #F2E8D9;
+}
+
+/* Textarea */
+.form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(242, 232, 217, 0.3);
+  border-radius: 4px;
+  color: #F2E8D9;
+  font-family: inherit;
+  font-size: 16px;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.2s;
+}
+
+.form-textarea:hover {
+  border-color: rgba(242, 232, 217, 0.5);
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #F2E8D9;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.form-textarea::placeholder {
+  color: rgba(242, 232, 217, 0.4);
+}
+
+/* Input */
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(242, 232, 217, 0.3);
+  border-radius: 4px;
+  color: #F2E8D9;
+  font-family: inherit;
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
+.form-input:hover {
+  border-color: rgba(242, 232, 217, 0.5);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #F2E8D9;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.form-input::placeholder {
+  color: rgba(242, 232, 217, 0.4);
+}
+
+/* Checkbox */
+.form-checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.form-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  cursor: pointer;
+  accent-color: #F2E8D9;
+}
+
+.form-checkbox-text {
+  font-size: 16px;
+  color: #F2E8D9;
+}
+
+/* Messages */
+.form-message {
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  animation: slideDown 0.3s ease-out;
+}
+
+.form-message-success {
+  background-color: rgba(76, 175, 80, 0.2);
+  border: 1px solid rgba(76, 175, 80, 0.5);
+  color: #4CAF50;
+}
+
+.form-message-error {
+  background-color: rgba(244, 67, 54, 0.2);
+  border: 1px solid rgba(244, 67, 54, 0.5);
+  color: #F44336;
+}
+
+/* Actions */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.form-button {
+  padding: 12px 24px;
+  font-family: 'Stalker', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.form-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-button-secondary {
+  background-color: transparent;
+  color: #F2E8D9;
+  border: 1px solid rgba(242, 232, 217, 0.3);
+}
+
+.form-button-secondary:hover:not(:disabled) {
+  background-color: rgba(242, 232, 217, 0.1);
+  border-color: #F2E8D9;
+}
+
+.form-button-primary {
+  background-color: #F2E8D9;
+  color: #1a1a1a;
+  border: 1px solid #F2E8D9;
+}
+
+.form-button-primary:hover:not(:disabled) {
+  background-color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(242, 232, 217, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .feedback-modal {
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .feedback-modal-header {
+    padding: 20px 16px 12px;
+  }
+
+  .feedback-modal-title {
+    font-size: 20px;
+  }
+
+  .feedback-form {
+    padding: 16px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .form-button {
+    width: 100%;
+  }
+}
+
+/* Scrollbar */
+.feedback-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.feedback-modal::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.feedback-modal::-webkit-scrollbar-thumb {
+  background: rgba(242, 232, 217, 0.3);
+  border-radius: 4px;
+}
+
+.feedback-modal::-webkit-scrollbar-thumb:hover {
+  background: rgba(242, 232, 217, 0.5);
+}

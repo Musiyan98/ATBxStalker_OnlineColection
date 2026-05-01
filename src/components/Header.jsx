@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../styles/Header.css';
 
-function Header() {
+function Header({ onOpenFeedback }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const baseUrl = import.meta.env.BASE_URL;
 
@@ -9,12 +9,24 @@ function Header() {
     setMenuOpen(!menuOpen);
   };
 
+  const handleFeedbackClick = () => {
+    onOpenFeedback();
+    setMenuOpen(false); // Закриваємо меню при відкритті форми
+  };
+
   return (
     <header className="header">
       <div className="header-content">
-        <div className="logo">
+        <a 
+          href="https://www.stalker2.com/uk" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="logo"
+          aria-label="Перейти на офіційний сайт S.T.A.L.K.E.R. 2"
+        >
           <img 
             src={`${baseUrl}stalker-logo.png`}
+            srcSet={`${baseUrl}stalker-logo.png 1x, ${baseUrl}stalker-logo@2x.png 2x, ${baseUrl}stalker-logo@3x.png 3x`}
             alt="S.T.A.L.K.E.R. 2: Heart of Chornobyl" 
             className="logo-image"
             loading="eager"
@@ -22,7 +34,7 @@ function Header() {
             width="200"
             height="60"
           />
-        </div>
+        </a>
         
         <h1 className="header-title">Онлайн колекція S.T.A.L.K.E.R x ATB</h1>
         
@@ -98,6 +110,23 @@ function Header() {
                     <path d="M0 1.66699H6.23438V28.333H0V30H8.34375V0H0V1.66699Z" fill="#F2E8D9"/>
                   </svg>
                 </a>
+              </li>
+              <li className="menu-item">
+                <button 
+                  onClick={handleFeedbackClick}
+                  className="menu-link menu-link-button"
+                >
+                  <svg width="9" height="30" viewBox="0 0 9 30" fill="none">
+                    <path d="M8.34375 1.66699H2.10938V28.333H8.34375V30H0V0H8.34375V1.66699Z" fill="#F2E8D9"/>
+                  </svg>
+                  <div className="menu-link-content">
+                    <span className="menu-link-title">Відгуки / Пропозиції</span>
+                    <span className="menu-link-subtitle">Зворотній зв'язок</span>
+                  </div>
+                  <svg width="9" height="30" viewBox="0 0 9 30" fill="none">
+                    <path d="M0 1.66699H6.23438V28.333H0V30H8.34375V0H0V1.66699Z" fill="#F2E8D9"/>
+                  </svg>
+                </button>
               </li>
             </ul>
           </nav>

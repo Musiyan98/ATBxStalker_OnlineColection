@@ -3,19 +3,19 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/ATBxStalker_OnlineColection/", // GitHub Pages base URL (без 'm' в Online!)
+  // Netlify автоматично обробляє base path
+  base: "/",
   server: {
     port: 3000,
     open: true,
   },
   build: {
     outDir: "dist",
-    sourcemap: false, // Вимкнено для production
-    minify: "esbuild", // Використовуємо esbuild (швидше ніж terser)
+    sourcemap: false,
+    minify: "esbuild",
     rollupOptions: {
       output: {
         manualChunks: {
-          // Розділяємо vendor код для кращого кешування
           "react-vendor": ["react", "react-dom"],
         },
       },
