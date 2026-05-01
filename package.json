@@ -12,7 +12,9 @@
     "images:recompress": "node scripts/4-recompress-images.js",
     "images:update-data": "node scripts/3-update-data.js",
     "images:status": "node scripts/check-images-status.js",
-    "images:all": "npm run images:download && npm run images:generate && npm run images:update-data"
+    "images:all": "npm run images:download && npm run images:generate && npm run images:update-data",
+    "video:prepare": "node scripts/prepare-all-cards.js",
+    "video:collect": "scripts/collect-images.bat"
   },
   "keywords": [
     "stalker",

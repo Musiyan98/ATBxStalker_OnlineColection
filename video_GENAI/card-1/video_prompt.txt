@@ -1,0 +1,37 @@
+CINEMAGRAPH VIDEO PROMPT - CARD 1
+
+Scene Description:
+Aerial view of a massive industrial cooling tower or reactor structure with exposed metal framework, surrounded by abandoned Soviet-era buildings. The cylindrical base is weathered concrete with warm yellow-orange lighting. Multiple levels of hexagonal metal scaffolding rise upward. Surrounding buildings have glowing orange windows suggesting fires or emergency lighting. Dark, moody atmosphere with deep shadows.
+
+Motion Elements:
+
+FOREGROUND (Subtle):
+- Gentle sway of metal framework (wind effect)
+- Slight camera drift/floating sensation (aerial perspective)
+- Dust particles floating in the air near the structure
+
+MIDGROUND (Primary Focus):
+- Flickering orange lights in surrounding building windows (irregular pattern)
+- Smoke or steam rising slowly from various points
+- Subtle heat distortion waves above warm surfaces
+
+BACKGROUND:
+- Atmospheric fog drifting slowly between buildings
+- Distant ambient lighting pulsing gently
+- Dark clouds moving very slowly overhead
+
+Lighting & Atmosphere:
+- Warm orange/amber glow from windows contrasts with cool blue-grey shadows
+- Volumetric fog creating depth
+- Post-apocalyptic Zone ambiance
+- Ominous, abandoned industrial atmosphere
+
+Technical Requirements:
+- Cinemagraph style with seamless loop
+- High detail preservation of metal framework texture
+- Subtle motion only - no dramatic movements
+- 3-5 second duration
+- Frame edges remain static
+- Focus on atmospheric elements and lighting flicker
+
+Keywords: Cinemagraph style, subtle motion, industrial decay, Chernobyl atmosphere, aerial view, abandoned reactor, Zone ambiance, high detail, seamless loop, post-apocalyptic, flickering lights, atmospheric fog, metal framework, Soviet architecture
