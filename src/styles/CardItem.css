@@ -8,6 +8,8 @@
   will-change: transform;
   content-visibility: auto;
   contain-intrinsic-size: 300px 400px;
+  max-width: 100%;
+  max-height: 100vh;
 }
 
 .card-item:hover {

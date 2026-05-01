@@ -1,6 +1,8 @@
 .card-detail {
   width: 100%;
+  max-width: 100vw;
   animation: fadeIn 0.4s ease;
+  overflow-x: hidden;
 }
 
 @keyframes fadeIn {
@@ -43,6 +45,8 @@
   background-color: var(--color-bg-medium);
   border: 2px solid var(--color-primary);
   padding: 2rem;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .detail-image-section {
@@ -56,6 +60,10 @@
 
 .detail-title {
   margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
 }
 
 .detail-number {
@@ -67,7 +75,7 @@
   font-weight: 700;
   padding: 0.5rem 1rem;
   border: 2px solid var(--color-primary);
-  margin-bottom: 1rem;
+  white-space: nowrap;
 }
 
 .detail-title h1 {
@@ -77,6 +85,9 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--color-primary);
+  margin: 0;
+  flex: 1;
+  min-width: 200px;
 }
 
 .detail-content-section {
@@ -170,12 +181,22 @@
 }
 
 .official-link-section {
-  margin-top: auto;
+  margin-top: 1.5rem;
+}
+
+.official-link-desktop {
+  display: block;
+}
+
+.official-link-mobile {
+  display: none;
+  text-align: center;
 }
 
 .official-link {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.8rem;
   padding: 1rem 2rem;
   background-color: var(--color-accent);
@@ -186,6 +207,8 @@
   letter-spacing: 0.05em;
   border: 2px solid var(--color-accent);
   transition: all 0.3s ease;
+  width: 100%;
+  max-width: 400px;
 }
 
 .official-link:hover {
@@ -199,6 +222,23 @@
     grid-template-columns: 1fr;
     gap: 2rem;
   }
+  
+  .official-link-desktop {
+    display: none;
+  }
+  
+  .official-link-mobile {
+    display: block;
+  }
+  
+  .detail-title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .detail-title h1 {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -209,6 +249,10 @@
   .detail-title h1 {
     font-size: 1.5rem;
   }
+  
+  .detail-number {
+    font-size: 1.2rem;
+  }
 
   .content-text {
     padding: 1rem;
@@ -218,5 +262,10 @@
   .back-button {
     font-size: 1rem;
     padding: 0.6rem 1rem;
+  }
+  
+  .official-link {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
   }
 }
