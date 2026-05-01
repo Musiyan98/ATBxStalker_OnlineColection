@@ -5,28 +5,28 @@ import { supabase } from "./supabaseClient";
  */
 export async function submitFeedback(feedbackData) {
   try {
-    // 1. Зберігаємо в Supabase
-    const { data, error } = await supabase
-      .from("feedback")
-      .insert([
-        {
-          message: feedbackData.message,
-          category: feedbackData.category,
-          needs_response: feedbackData.needsResponse,
-          contact_info: feedbackData.contactInfo || null,
-          created_at: new Date().toISOString(),
-        },
-      ])
-      .select();
+    // 1. Зберігаємо в Supabase (без .select() бо anon не має прав на SELECT)
+    const { error } = await supabase.from("feedback").insert([
+      {
+        message: feedbackData.message,
+        category: feedbackData.category,
+        needs_response: feedbackData.needsResponse,
+        contact_info: feedbackData.contactInfo || null,
+        created_at: new Date().toISOString(),
+      },
+    ]);
 
     if (error) {
       console.error("Supabase error:", error);
       throw new Error("Помилка збереження відгуку");
     }
 
+    // Генеруємо тимчасовий ID для Telegram (реальний ID недоступний через RLS)
+    const tempId = Date.now();
+
     // 2. Спробуємо відправити в Telegram через наш API
     try {
-      await sendToTelegram(feedbackData, data[0].id);
+      await sendToTelegram(feedbackData, tempId);
       console.log("✅ Telegram notification sent successfully");
     } catch (telegramError) {
       // Логуємо помилку, але не блокуємо успішне збереження
@@ -34,7 +34,7 @@ export async function submitFeedback(feedbackData) {
       // Дані успішно збережено в Supabase, навіть якщо Telegram не працює
     }
 
-    return { success: true, data };
+    return { success: true };
   } catch (error) {
     console.error("Error submitting feedback:", error);
     throw error;
