@@ -50,3 +50,9 @@ public/stalker-logo-original.png
 
 # Local Netlify CLI
 .netlify/
+
+# 1. Ігнорувати всі файли з розширенням .md
+*.md
+
+# 2. Але НЕ ігнорувати README.md
+!README.md
