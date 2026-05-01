@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import CardGrid from './components/CardGrid';
 import CardDetail from './components/CardDetail';
@@ -10,6 +10,11 @@ import './styles/App.css';
 function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
+
+  // Scroll to top при зміні сторінки
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [selectedCard]);
 
   const handleCardClick = (card) => {
     setSelectedCard(card);

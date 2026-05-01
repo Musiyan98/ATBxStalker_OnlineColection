@@ -127,20 +127,8 @@
 }
 
 .tab-badge {
-  width: 10px;
-  height: 10px;
-  background-color: #ff0000;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+  /* Червоне коло прибрано */
+  display: none;
 }
 
 .tab-content {
