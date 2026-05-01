@@ -41,3 +41,10 @@ process-*.js
 off_link_arr.json
 ІНСТРУКЦІЯ*.md
 SETUP.md
+
+# Image optimization - original files (optional, можна закомітити якщо потрібно)
+# public/images/cards/gallery/original/
+# public/images/cards/detail/original/
+
+# Backup files
+*.backup.json

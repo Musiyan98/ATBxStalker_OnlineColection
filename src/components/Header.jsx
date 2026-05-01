@@ -3,6 +3,7 @@ import '../styles/Header.css';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const baseUrl = import.meta.env.BASE_URL;
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -13,7 +14,7 @@ function Header() {
       <div className="header-content">
         <div className="logo">
           <img 
-            src="stalker-logo.png" 
+            src={`${baseUrl}stalker-logo.png`}
             alt="S.T.A.L.K.E.R. 2: Heart of Chornobyl" 
             className="logo-image"
             loading="eager"

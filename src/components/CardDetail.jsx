@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import AudioPlayer from './AudioPlayer';
+import ResponsiveImage from './ResponsiveImage';
+import { getDetailPictureProps } from '../utils/imageHelpers';
 import '../styles/CardDetail.css';
 
 function CardDetail({ card, onBack }) {
   const [activeTab, setActiveTab] = useState(0);
+  const baseUrl = import.meta.env.BASE_URL;
+  const pictureProps = getDetailPictureProps(baseUrl, card.number, card.title, 'detail-image', 'eager');
 
   return (
     <div className="card-detail">
@@ -16,13 +20,7 @@ function CardDetail({ card, onBack }) {
 
       <div className="detail-container">
         <div className="detail-image-section">
-          <img 
-            src={card.image} 
-            alt={card.title} 
-            className="detail-image"
-            loading="eager"
-            fetchpriority="high"
-          />
+          <ResponsiveImage {...pictureProps} />
           <div className="detail-title">
             <span className="detail-number">#{card.number}</span>
             <h1>{card.title}</h1>
@@ -37,7 +35,7 @@ function CardDetail({ card, onBack }) {
                 className={`tab-button ${activeTab === index ? 'active' : ''}`}
                 onClick={() => setActiveTab(index)}
               >
-                <img src="pda-icon.png" alt="" className="tab-icon" loading="lazy" />
+                <img src={`${baseUrl}pda-icon.png`} alt="" className="tab-icon" loading="lazy" />
                 <span className="tab-label">{tab.label}</span>
                 {tab.badge && <span className="tab-badge"></span>}
               </button>
