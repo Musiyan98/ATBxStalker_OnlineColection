@@ -6,6 +6,17 @@ function InstallPWA() {
   const [showInstallButton, setShowInstallButton] = useState(false);
 
   useEffect(() => {
+    // Перевіряємо чи це мобільний пристрій
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Перевіряємо розмір екрану (додаткова перевірка)
+    const isSmallScreen = window.innerWidth <= 1024;
+    
+    // Показуємо тільки на мобільних
+    if (!isMobile && !isSmallScreen) {
+      return;
+    }
+
     // Перевіряємо чи додаток вже встановлено
     if (window.matchMedia('(display-mode: standalone)').matches) {
       return; // Додаток вже встановлено
