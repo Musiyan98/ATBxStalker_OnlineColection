@@ -43,11 +43,22 @@ async function generateIcons() {
     const outputPath = join(publicDir, name);
 
     try {
+      // Створюємо іконку з темним фоном та padding
+      const padding = Math.floor(size * 0.1); // 10% padding
+      const logoSize = size - padding * 2;
+
       await sharp(inputPath)
-        .resize(size, size, {
+        .resize(logoSize, logoSize, {
           fit: "contain",
-          background: { r: 26, g: 26, b: 26, alpha: 1 }, // #1a1a1a
-          kernel: sharp.kernel.lanczos3, // Найкраща якість
+          background: { r: 0, g: 0, b: 0, alpha: 0 },
+          kernel: sharp.kernel.lanczos3,
+        })
+        .extend({
+          top: padding,
+          bottom: padding,
+          left: padding,
+          right: padding,
+          background: { r: 26, g: 26, b: 26, alpha: 1 }, // #1a1a1a темний фон
         })
         .png({
           quality: 100,
