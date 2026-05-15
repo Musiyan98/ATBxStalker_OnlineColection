@@ -37,43 +37,60 @@ async function generateIcons() {
     return;
   }
 
-  console.log("🎨 Генерація PWA іконок високої якості...");
+  console.log("🎨 Генерація PWA іконок з темним фоном...");
 
   for (const { size, name } of sizes) {
     const outputPath = join(publicDir, name);
 
     try {
-      // Створюємо іконку з темним фоном та padding
-      const padding = Math.floor(size * 0.1); // 10% padding
-      const logoSize = size - padding * 2;
+      // Розмір логотипу (80% від розміру іконки)
+      const logoSize = Math.floor(size * 0.8);
+      const padding = Math.floor((size - logoSize) / 2);
 
-      await sharp(inputPath)
+      // Створюємо темний квадрат як фон
+      const background = await sharp({
+        create: {
+          width: size,
+          height: size,
+          channels: 4,
+          background: { r: 26, g: 26, b: 26, alpha: 1 }, // #1a1a1a
+        },
+      })
+        .png()
+        .toBuffer();
+
+      // Змінюємо розмір логотипу
+      const logo = await sharp(inputPath)
         .resize(logoSize, logoSize, {
           fit: "contain",
           background: { r: 0, g: 0, b: 0, alpha: 0 },
           kernel: sharp.kernel.lanczos3,
         })
-        .extend({
-          top: padding,
-          bottom: padding,
-          left: padding,
-          right: padding,
-          background: { r: 26, g: 26, b: 26, alpha: 1 }, // #1a1a1a темний фон
-        })
+        .png()
+        .toBuffer();
+
+      // Накладаємо логотип на фон
+      await sharp(background)
+        .composite([
+          {
+            input: logo,
+            top: padding,
+            left: padding,
+          },
+        ])
         .png({
           quality: 100,
           compressionLevel: 6,
-          adaptiveFiltering: true,
         })
         .toFile(outputPath);
 
-      console.log(`✅ Створено: ${name} (${size}x${size})`);
+      console.log(`✅ Створено: ${name} (${size}x${size}) з темним фоном`);
     } catch (error) {
       console.error(`❌ Помилка при створенні ${name}:`, error.message);
     }
   }
 
-  console.log("🎉 Готово! PWA іконки високої якості створено.");
+  console.log("🎉 Готово! PWA іконки з темним фоном створено.");
 }
 
 generateIcons();
