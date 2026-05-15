@@ -4,6 +4,7 @@ import CardGrid from './components/CardGrid';
 import CardDetail from './components/CardDetail';
 import Footer from './components/Footer';
 import FeedbackModal from './components/FeedbackModal';
+import InstallPWA from './components/InstallPWA';
 import { cardsData } from './data/cardsData';
 import './styles/App.css';
 
@@ -34,6 +35,7 @@ function App() {
 
   return (
     <div className="app">
+      <InstallPWA />
       <Header onOpenFeedback={openFeedbackModal} />
       <main className="main-content">
         {selectedCard ? (

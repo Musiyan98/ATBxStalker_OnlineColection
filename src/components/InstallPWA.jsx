@@ -1,0 +1,75 @@
+import { useState, useEffect } from 'react';
+import '../styles/InstallPWA.css';
+
+function InstallPWA() {
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [showInstallButton, setShowInstallButton] = useState(false);
+
+  useEffect(() => {
+    // Перевіряємо чи додаток вже встановлено
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      return; // Додаток вже встановлено
+    }
+
+    const handler = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstallButton(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handler);
+
+    // Реєструємо Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('✅ Service Worker registered'))
+        .catch((err) => console.error('❌ Service Worker registration failed:', err));
+    }
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handler);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    
+    if (outcome === 'accepted') {
+      console.log('✅ User accepted the install prompt');
+    }
+    
+    setDeferredPrompt(null);
+    setShowInstallButton(false);
+  };
+
+  const handleDismiss = () => {
+    setShowInstallButton(false);
+  };
+
+  if (!showInstallButton) return null;
+
+  return (
+    <div className="install-pwa-banner">
+      <div className="install-pwa-content">
+        <div className="install-pwa-icon">📱</div>
+        <div className="install-pwa-text">
+          <strong>Встановити додаток</strong>
+          <p>Швидкий доступ до колекції з головного екрану</p>
+        </div>
+        <div className="install-pwa-actions">
+          <button onClick={handleInstallClick} className="install-pwa-button">
+            Встановити
+          </button>
+          <button onClick={handleDismiss} className="install-pwa-dismiss">
+            ✕
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default InstallPWA;
