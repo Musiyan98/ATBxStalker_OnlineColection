@@ -4,6 +4,7 @@ import '../styles/InstallPWA.css';
 function InstallPWA() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [showInstallButton, setShowInstallButton] = useState(false);
+  const [isInstalling, setIsInstalling] = useState(false);
 
   useEffect(() => {
     // Перевіряємо чи це мобільний пристрій
@@ -45,6 +46,7 @@ function InstallPWA() {
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
 
+    setIsInstalling(true);
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
     
@@ -54,6 +56,7 @@ function InstallPWA() {
     
     setDeferredPrompt(null);
     setShowInstallButton(false);
+    setIsInstalling(false);
   };
 
   const handleDismiss = () => {
@@ -68,11 +71,15 @@ function InstallPWA() {
         <div className="install-pwa-icon">📱</div>
         <div className="install-pwa-text">
           <strong>Встановити додаток</strong>
-          <p>Швидкий доступ до колекції з головного екрану</p>
+          <p>Всі картки та аудіо будуть доступні офлайн (~150 МБ)</p>
         </div>
         <div className="install-pwa-actions">
-          <button onClick={handleInstallClick} className="install-pwa-button">
-            Встановити
+          <button 
+            onClick={handleInstallClick} 
+            className="install-pwa-button"
+            disabled={isInstalling}
+          >
+            {isInstalling ? 'Встановлення...' : 'Встановити'}
           </button>
           <button onClick={handleDismiss} className="install-pwa-dismiss">
             ✕

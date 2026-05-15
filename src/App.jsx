@@ -5,6 +5,7 @@ import CardDetail from './components/CardDetail';
 import Footer from './components/Footer';
 import FeedbackModal from './components/FeedbackModal';
 import InstallPWA from './components/InstallPWA';
+import OfflineWelcome from './components/OfflineWelcome';
 import { cardsData } from './data/cardsData';
 import './styles/App.css';
 
@@ -35,6 +36,7 @@ function App() {
 
   return (
     <div className="app">
+      <OfflineWelcome />
       <InstallPWA />
       <Header onOpenFeedback={openFeedbackModal} />
       <main className="main-content">

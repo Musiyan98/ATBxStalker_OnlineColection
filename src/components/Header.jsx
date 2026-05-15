@@ -1,9 +1,19 @@
 import { useState } from 'react';
+import OfflineDownload from './OfflineDownload';
 import '../styles/Header.css';
 
 function Header({ onOpenFeedback }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const baseUrl = import.meta.env.BASE_URL;
+  
+  const { 
+    isDownloading, 
+    isDownloaded, 
+    progress, 
+    error, 
+    downloadOfflineData, 
+    clearOfflineData 
+  } = OfflineDownload();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -11,7 +21,20 @@ function Header({ onOpenFeedback }) {
 
   const handleFeedbackClick = () => {
     onOpenFeedback();
-    setMenuOpen(false); // Закриваємо меню при відкритті форми
+    setMenuOpen(false);
+  };
+
+  const handleDownloadClick = () => {
+    if (isDownloaded) {
+      if (confirm('Видалити завантажені дані (~150 МБ)?')) {
+        clearOfflineData();
+      }
+    } else {
+      if (confirm('Завантажити всі картки та аудіо для офлайн режиму? (~150 МБ, може зайняти кілька хвилин)')) {
+        downloadOfflineData();
+      }
+    }
+    setMenuOpen(false);
   };
 
   return (
@@ -127,6 +150,29 @@ function Header({ onOpenFeedback }) {
                     <path d="M0 1.66699H6.23438V28.333H0V30H8.34375V0H0V1.66699Z" fill="#F2E8D9"/>
                   </svg>
                 </button>
+              </li>
+              <li className="menu-item">
+                <button 
+                  onClick={handleDownloadClick}
+                  className="menu-link menu-link-button"
+                  disabled={isDownloading}
+                >
+                  <svg width="9" height="30" viewBox="0 0 9 30" fill="none">
+                    <path d="M8.34375 1.66699H2.10938V28.333H8.34375V30H0V0H8.34375V1.66699Z" fill="#F2E8D9"/>
+                  </svg>
+                  <div className="menu-link-content">
+                    <span className="menu-link-title">
+                      {isDownloading ? `Завантаження... ${progress}%` : isDownloaded ? '✅ Дані завантажено' : '📥 Завантажити дані КПК'}
+                    </span>
+                    <span className="menu-link-subtitle">
+                      {isDownloaded ? 'Натисніть щоб видалити' : 'Офлайн режим (~150 МБ)'}
+                    </span>
+                  </div>
+                  <svg width="9" height="30" viewBox="0 0 9 30" fill="none">
+                    <path d="M0 1.66699H6.23438V28.333H0V30H8.34375V0H0V1.66699Z" fill="#F2E8D9"/>
+                  </svg>
+                </button>
+                {error && <div className="download-error">{error}</div>}
               </li>
             </ul>
           </nav>

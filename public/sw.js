@@ -1,9 +1,8 @@
-// Service Worker для PWA
+// Service Worker для PWA - мінімальна версія
 const CACHE_NAME = "stalker-cards-v1";
 const RUNTIME_CACHE = "stalker-runtime-v1";
-const AUDIO_CACHE = "stalker-audio-v1";
 
-// Файли для кешування при встановленні
+// Тільки критичні файли для початкового завантаження
 const PRECACHE_URLS = [
   "/",
   "/index.html",
@@ -12,40 +11,27 @@ const PRECACHE_URLS = [
   "/pwa-icon-512.png",
   "/stalker-logo.png",
   "/pda-icon.png",
+  "/favicon.png",
 ];
 
-// Генеруємо список всіх аудіо файлів (48 карток x 2 аудіо)
-const AUDIO_FILES = [];
-for (let i = 1; i <= 48; i++) {
-  AUDIO_FILES.push(`/audio/card${i}_audio0.mp3`);
-  AUDIO_FILES.push(`/audio/card${i}_audio1.mp3`);
-}
-
-// Встановлення Service Worker
+// Встановлення Service Worker - тільки основні файли
 self.addEventListener("install", (event) => {
+  console.log("📦 Встановлення PWA...");
+
   event.waitUntil(
-    Promise.all([
-      // Кешуємо основні файли
-      caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS)),
-      // Кешуємо всі аудіо файли
-      caches.open(AUDIO_CACHE).then((cache) => {
-        console.log("📥 Завантаження аудіо файлів для офлайн режиму...");
-        return cache
-          .addAll(AUDIO_FILES)
-          .then(() => {
-            console.log("✅ Всі аудіо файли закешовано!");
-          })
-          .catch((err) => {
-            console.warn("⚠️ Деякі аудіо не вдалося закешувати:", err);
-          });
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => cache.addAll(PRECACHE_URLS))
+      .then(() => {
+        console.log("✅ Основні файли закешовано");
+        return self.skipWaiting();
       }),
-    ]).then(() => self.skipWaiting()),
   );
 });
 
 // Активація Service Worker
 self.addEventListener("activate", (event) => {
-  const currentCaches = [CACHE_NAME, RUNTIME_CACHE, AUDIO_CACHE];
+  const currentCaches = [CACHE_NAME, RUNTIME_CACHE, "stalker-offline-data-v1"];
   event.waitUntil(
     caches
       .keys()
@@ -67,45 +53,50 @@ self.addEventListener("activate", (event) => {
 
 // Стратегія кешування
 self.addEventListener("fetch", (event) => {
-  // Пропускаємо не-GET запити
   if (event.request.method !== "GET") return;
-
-  // Пропускаємо зовнішні запити (API, fonts, тощо)
   if (!event.request.url.startsWith(self.location.origin)) return;
 
-  // Для аудіо файлів - Cache First (пріоритет офлайн)
-  if (event.request.url.includes("/audio/")) {
+  // Для аудіо та зображень - спочатку кеш, потім мережа
+  if (
+    event.request.url.includes("/audio/") ||
+    event.request.url.includes("/images/")
+  ) {
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
-        return (
-          cachedResponse ||
-          fetch(event.request).then((response) => {
-            return caches.open(AUDIO_CACHE).then((cache) => {
-              cache.put(event.request, response.clone());
-              return response;
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+
+        return fetch(event.request).then((response) => {
+          // Кешуємо в runtime кеш
+          if (response.status === 200) {
+            const responseToCache = response.clone();
+            caches.open(RUNTIME_CACHE).then((cache) => {
+              cache.put(event.request, responseToCache);
             });
-          })
-        );
+          }
+          return response;
+        });
       }),
     );
     return;
   }
 
-  // Для інших файлів - Cache First з fallback на Network
+  // Для інших файлів
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
         return cachedResponse;
       }
 
-      return caches.open(RUNTIME_CACHE).then((cache) => {
-        return fetch(event.request).then((response) => {
-          // Кешуємо тільки успішні відповіді
-          if (response.status === 200) {
-            cache.put(event.request, response.clone());
-          }
-          return response;
-        });
+      return fetch(event.request).then((response) => {
+        if (response.status === 200) {
+          const responseToCache = response.clone();
+          caches.open(RUNTIME_CACHE).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+        }
+        return response;
       });
     }),
   );
