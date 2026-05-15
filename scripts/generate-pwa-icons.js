@@ -12,9 +12,32 @@ const sizes = [
 ];
 
 async function generateIcons() {
-  const inputPath = join(publicDir, "stalker-logo.png");
+  // Спробуємо використати найбільший доступний логотип
+  const possibleInputs = [
+    "stalker-logo@3x.png",
+    "stalker-logo@2x.png",
+    "stalker-logo.png",
+  ];
 
-  console.log("🎨 Генерація PWA іконок...");
+  let inputPath = null;
+  for (const filename of possibleInputs) {
+    const path = join(publicDir, filename);
+    try {
+      await sharp(path).metadata();
+      inputPath = path;
+      console.log(`📸 Використовую: ${filename}`);
+      break;
+    } catch {
+      continue;
+    }
+  }
+
+  if (!inputPath) {
+    console.error("❌ Не знайдено жодного логотипу!");
+    return;
+  }
+
+  console.log("🎨 Генерація PWA іконок високої якості...");
 
   for (const { size, name } of sizes) {
     const outputPath = join(publicDir, name);
@@ -24,8 +47,13 @@ async function generateIcons() {
         .resize(size, size, {
           fit: "contain",
           background: { r: 26, g: 26, b: 26, alpha: 1 }, // #1a1a1a
+          kernel: sharp.kernel.lanczos3, // Найкраща якість
         })
-        .png()
+        .png({
+          quality: 100,
+          compressionLevel: 6,
+          adaptiveFiltering: true,
+        })
         .toFile(outputPath);
 
       console.log(`✅ Створено: ${name} (${size}x${size})`);
@@ -34,7 +62,7 @@ async function generateIcons() {
     }
   }
 
-  console.log("🎉 Готово! PWA іконки створено.");
+  console.log("🎉 Готово! PWA іконки високої якості створено.");
 }
 
 generateIcons();
